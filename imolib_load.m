@@ -10,26 +10,35 @@ function imolib_load(File)
     error("Failed to open: %s\n", Msg);
   end
 
-  read_magic(Fid);
+  ## Read the header to identify the type, the width, the height and the
+  ## depth
+  [Header, Ok] = fscanf(Fid, "P%1d %d %d %d ");
 
-  printf("Closing\n");
+  if (Ok != 4)
+    error("Failed to read the header, probably it is not a PNM format");
+  end
 
+  switch (Header(1))
+    case 4
+      Format = "PBM";
+    case 5
+      Format = "PGM";
+      read_pgm(Fid, Header(2), Header(3), Header(4))
+    case 6
+      Format = "PPM";
+    case 7
+      Format = "PAM";
+    otherwise
+      error("Not a PNM format");
+  end
   fclose(Fid)
 endfunction
 
-function read_magic(Fid)
-
-  Magic = setstr(fread(Fid, 2, "int8")');
-  if strcmp(Magic, "P4")
-    printf("PBM\n");
-  elseif strcmp(Magic, "P5")
-    printf("PGM\n");
-  elseif strcmp(Magic, "P6")
-    printf("PPM\n");
-  elseif strcmp(Magic, "P7")
-    printf("PAM\n");
-  else
-    error("Not a PNM format");
-  end
-      
+function read_pgm(Fid, Width, Height, Depth)
+  
+  [Raster, Count] = fread(Fid, Width, "uchar");
+  printf("Read %d\n", Count)
+  Raster
 endfunction
+
+      
