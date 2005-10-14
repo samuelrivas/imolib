@@ -1,8 +1,10 @@
 ## Usage imolib_load(File)
 ##
 ## Can load either ppm or pgm images
+##
+## Return [Img, ColourMap]
 
-function imolib_load(File)
+function [Img, ColourMap] = imolib_load(File)
 
   [Fid, Msg] = fopen(File, "r", "ieee-le");
   
@@ -18,27 +20,34 @@ function imolib_load(File)
     error("Failed to read the header, probably it is not a PNM format");
   end
 
-  switch (Header(1))
-    case 4
-      Format = "PBM";
-    case 5
-      Format = "PGM";
-      read_pgm(Fid, Header(2), Header(3), Header(4))
-    case 6
-      Format = "PPM";
-    case 7
-      Format = "PAM";
-    otherwise
-      error("Not a PNM format");
+  if (Header(1) != 5)
+    error("Not a PGM image");
   end
+
+  
+  ## Load the image bytes in a singe column vector
+  Width = Header(2);
+  Height = Header(3);
+  Depth = Header(4);
+
+  ## TODO: Supports depths higher than 255
+  if (Depth > 255) 
+    error("Two-sized pixels are not supported yet (depth must "
+	  + "be less than 256")
+  end
+
+  Bytes = Height*Width;
+  Raster = zeros(1, Bytes);
+
+  [Raster, Count] = fread(Fid, Bytes, "uchar");
+
+  if (Count != Bytes)
+    error("Cannot read the whole image (maybe file is too short)");
+  end
+  
+  Img = reshape(Raster, Width, Height)';
+  ColourMap = gray(Depth);
+
   fclose(Fid)
 endfunction
 
-function read_pgm(Fid, Width, Height, Depth)
-  
-  [Raster, Count] = fread(Fid, Width, "uchar");
-  printf("Read %d\n", Count)
-  Raster
-endfunction
-
-      
