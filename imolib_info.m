@@ -1,6 +1,22 @@
-## usage imolib_format("FileName")
+## usage [Format, Heigth, Width, Depth] = imolib_format("FileName")
+##
+## Returns information about a PNM image. Format can be either "PBM", or
+## "PGM" or "PPM" or "PAM"
+##
+## Example:
+##
+## [Format, Height, Width, Depth] = imolib_info("lena.pgm")
+##	Format = PGM
+##	Height = 512
+##	Width = 512
+##	Depth = 255
 
-function [Format, Height Width, Depth] = imolib_info(File)
+
+function [Format, Height, Width, Depth] = imolib_info(File)
+
+  if (nargin != 1 || nargout > 4)
+    usage("[Format, Heigth, Width, Depth] = imolib_format(\"FileName\")")
+  end
 
   [Fid, Msg] = fopen(File, "r", "ieee-le");
   
