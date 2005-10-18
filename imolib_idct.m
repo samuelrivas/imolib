@@ -1,6 +1,6 @@
 ## usage imolib_dct(M)
 
-function M = imolib_dct(Transform)
+function M = imolib_idct(Transform)
 
   N = size(Transform, 1);
   if (N != size(Transform, 2))
