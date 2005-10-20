@@ -2,8 +2,8 @@
 
 function Transform = imolib_dct(M)
 
-  N = size(M, 1);
-  if (N != size(M, 2))
+  N = issquare(M);
+  if (N == 0)
     error("M must be square");
   end
 
