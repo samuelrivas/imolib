@@ -3,7 +3,7 @@
 ## Quantizes the M matrix with Factor. If QuantMatrix is present, an
 ## additional factor is used for each individual coefficient.
 ##
-## The inverse parameter is also optional. If it is non-zero then
+## The inverse parameter is an optional boolean. If it is true then
 ## an inverse quantization is performed
 ##
 ## The operation is roughly the next:
@@ -15,6 +15,12 @@ function QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
     usage("QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)\n");
   end
 
+  if (nargin >= 3)
+    if (!isbool(Inverse))
+      error("Inverse should be a boolean");
+    end
+  end
+
   if (nargin != 4)
     QuantMatrix = ones(size(M));
   elseif (~ all(size(M) == size(QuantMatrix)))
@@ -22,7 +28,7 @@ function QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
   end
 
   if (nargin == 2)
-    Inverse = 0;
+    Inverse = false;
   end
 
   if (Inverse)
