@@ -59,7 +59,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
 
   ## Unset inverse quantization by default
   if (nargin < 4) 
-    Inverse = 0;
+    Inverse = false;
   end
 
   ## Quantize the matrix
