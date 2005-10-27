@@ -1,4 +1,6 @@
-## usage imolib_dct(M)
+## usage Transform imolib_dct(M)
+##
+## M must be a square matrix
 
 function Transform = imolib_dct(M)
 
