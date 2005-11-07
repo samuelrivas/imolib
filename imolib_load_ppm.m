@@ -38,21 +38,21 @@ function [R, G, B] = imolib_load_ppm(File)
 	  + "be less than 256)")
   end
 
-  R = G = B = zeros(Height, Width);
-
-  for I = 1:Height
-    for J = 1:Width
-      [Triplet, Count] = fread(Fid, 3, "uchar");
-
-      if (Count != 3)
-	error("Cannot read the whole image (maybe file is too short)");
-      end
-
-      R(I,J) = Triplet(1);
-      G(I,J) = Triplet(2);
-      B(I,J) = Triplet(3);
-    end
+  Bytes = Height * Width * 3;
+  Raster = zeros(1, Bytes);
+  R = G = B = zeros(1, Height * Width);
+  
+  [Raster, Count] = fread(Fid, Bytes, "uchar");
+  if (Count != Bytes)
+    error("Cannot read the whole image (maybe file is too short)");
   end
   
+  R = Raster(1:3:Bytes);
+  G = Raster(2:3:Bytes);
+  B = Raster(3:3:Bytes);
+
+  R = reshape(R, Width, Height)';
+  G = reshape(G, Width, Height)';
+  B = reshape(B, Width, Height)';
   fclose(Fid)
 endfunction
