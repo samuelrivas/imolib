@@ -1,10 +1,14 @@
-## Usage imolib_load(File)
+## Usage imolib_load_pgm(File)
 ##
-## Can load either ppm or pgm images
+## Can load pgm images
 ##
 ## Return [Img, ColourMap]
 
-function [Img, ColourMap] = imolib_load(File)
+function [Img, ColourMap] = imolib_load_pgm(File)
+
+  if (nargin != 1 || nargout > 3)
+    usage("[Red, Green, Blue] = imolib_load(File)");
+  end
 
   [Fid, Msg] = fopen(File, "r", "ieee-le");
   
@@ -33,7 +37,7 @@ function [Img, ColourMap] = imolib_load(File)
   ## TODO: Supports depths higher than 255
   if (Depth > 255) 
     error("Two-sized pixels are not supported yet (depth must "
-	  + "be less than 256")
+	  + "be less than 256)")
   end
 
   Bytes = Height*Width;
@@ -50,4 +54,3 @@ function [Img, ColourMap] = imolib_load(File)
 
   fclose(Fid)
 endfunction
-
