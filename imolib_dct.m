@@ -1,12 +1,19 @@
 ## usage Transform imolib_dct(M)
 ##
 ## M must be a square matrix
+##
+## WARNING: This function is _extremely_ slow (use imolib_fdct whenever
+## you can)
 
 function Transform = imolib_dct(M)
 
+  if (nargout > 1 || nargin != 1)
+    usage("Transform imolib_dct(M)\n");
+  end
+
   N = issquare(M);
   if (N == 0)
-    error("M must be square");
+    error("M must be square\n");
   end
 
   Transform = zeros(N,N);

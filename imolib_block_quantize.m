@@ -1,4 +1,24 @@
-## usage: ??
+## usage: QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse,
+##				     QuantMatrix)
+##
+## Quantize M blockwise. An individual quant factor can be specified for
+## each block.
+##
+## M must be a matrix.
+##
+## BlockDims can be either a scalar or a 2 length row vector. A scalar
+## means square blocks.
+##
+## QuantFactor can be either a scalar or a matrix. If it is a matrix,
+## its dimensions must be coherent with M dimensions and BlockDims, so
+## that each quant coefficient applies to a M block.
+##
+## Inverse is an optional boolean to set inverse quantization. Default
+## is false.
+##
+## QuantMatrix is also optional. If set, it must be a matrix with
+## BlockDims dimensions. It is used to modify the quant factor for each
+## block coefficient.
 
 function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
 				    QuantMatrix)
@@ -11,7 +31,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
   ## Get the block dimensions and check that M dimensions are multiples
   ## of them
   if (size(BlockDims, 1) != 1 || length(BlockDims) > 2) 
-    error("Block Dimensions should be either an integer or a 1x2 matrix");
+    error("Block Dimensions should be either an integer or a 1x2 matrix\n");
   end
 
   if (size(BlockDims, 2) == 1)
@@ -26,10 +46,10 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
   end
 
   if (mod(size(M, 1), BlockRows) != 0) 
-    error("Number of M rows is not multiple of %d", BlockRows);
+    error("Number of M rows is not multiple of %d\n", BlockRows);
   end
   if (mod(size(M, 2), BlockColumns) != 0)
-    error("Number of M columns is not multiple of %d", BlockColumns);
+    error("Number of M columns is not multiple of %d\n", BlockColumns);
   end
 
   ## Work out the number of blocks
@@ -40,7 +60,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
     if (size(QuantFactor, 1) != NBlocks(1)
 	|| size(QuantFactor, 2) != NBlocks(2))
       error(["QuantFactor dimensions does not agree with Block dimensions ", \
-	     "and M dimensions"]);
+	     "and M dimensions\n"]);
     end
   else
     QuantFactor = QuantFactor * ones(NBlocks);
@@ -51,7 +71,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
   if (nargin == 5)
     if (size(QuantMatrix, 1) != BlockRows 
 	|| size(QuantMatrix, 2) != BlockColumns)
-      error("QuantMatrix dimensions does not agree with Block dimensions");
+      error("QuantMatrix dimensions does not agree with Block dimensions\n");
     end
   else
     QuantMatrix = ones(BlockRows, BlockColumns);

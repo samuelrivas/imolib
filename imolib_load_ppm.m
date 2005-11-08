@@ -5,7 +5,7 @@
 function [R, G, B] = imolib_load_ppm(File)
 
   if (nargin != 1 || nargout > 3)
-    usage("[Red, Green, Blue] = imolib_load(File)");
+    usage("[Red, Green, Blue] = imolib_load(File)\n");
   end
 
   [Fid, Msg] = fopen(File, "r", "ieee-le");
@@ -19,11 +19,11 @@ function [R, G, B] = imolib_load_ppm(File)
   [Header, Ok] = fscanf(Fid, "P%1d %d %d %d ");
 
   if (Ok != 4)
-    error("Failed to read the header, probably it is not a PNM format");
+    error("Failed to read the header, probably it is not a PNM format\n");
   end
 
   if (Header(1) != 6)
-    error("Not a PPM image");
+    error("Not a PPM image\n");
   end
 
   
@@ -34,8 +34,8 @@ function [R, G, B] = imolib_load_ppm(File)
 
   ## TODO: Supports depths higher than 255
   if (Depth > 255) 
-    error("Two-sized pixels are not supported yet (depth must "
-	  + "be less than 256)")
+    error("Two-byte sized pixels are not supported yet (depth must "
+	  + "be less than 256)\n")
   end
 
   Bytes = Height * Width * 3;
@@ -44,7 +44,7 @@ function [R, G, B] = imolib_load_ppm(File)
   
   [Raster, Count] = fread(Fid, Bytes, "uchar");
   if (Count != Bytes)
-    error("Cannot read the whole image (maybe file is too short)");
+    error("Cannot read the whole image (maybe file is too short)\n");
   end
   
   R = Raster(1:3:Bytes);

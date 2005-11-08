@@ -17,14 +17,14 @@ function QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
 
   if (nargin >= 3)
     if (!isbool(Inverse))
-      error("Inverse should be a boolean");
+      error("Inverse should be a boolean\n");
     end
   end
 
   if (nargin != 4)
     QuantMatrix = ones(size(M));
   elseif (~ all(size(M) == size(QuantMatrix)))
-    error("QuantMatrix and M dimensions don't agree");
+    error("QuantMatrix and M dimensions don't agree\n");
   end
 
   if (nargin == 2)

@@ -8,17 +8,17 @@
 ## Two possible improvements are:
 ##
 ## - Caching the C matrix to avoid recalculating it in each call
-## - Explote the C matrix preiodicity to save some computations
+## - Exploit the C matrix preiodicity to save some computations
 ##
 function Transform = imolib_fdct(M, Inverse)
 
   ## Check input
   if (nargout > 1 || nargin < 1 || nargin > 2)
-    usage("Transform = imolib_fdct(M, Inverse)");
+    usage("Transform = imolib_fdct(M, Inverse)\n");
   end
 
   if (!all(size(M) == [8,8]))
-    error("M must be 8x8");
+    error("M must be 8x8\n");
   end
 
   if (nargin == 1)
@@ -26,7 +26,7 @@ function Transform = imolib_fdct(M, Inverse)
   end
 
   if (!isbool(Inverse))
-    error("Inverse must be boolean");
+    error("Inverse must be boolean\n");
   end
 
   C = zeros(8);

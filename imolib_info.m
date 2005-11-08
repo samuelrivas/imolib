@@ -15,7 +15,7 @@
 function [Format, Height, Width, Depth] = imolib_info(File)
 
   if (nargin != 1 || nargout > 4)
-    usage("[Format, Heigth, Width, Depth] = imolib_format(\"FileName\")")
+    usage("[Format, Heigth, Width, Depth] = imolib_format(\"FileName\")\n")
   end
 
   [Fid, Msg] = fopen(File, "r", "ieee-le");
@@ -29,7 +29,7 @@ function [Format, Height, Width, Depth] = imolib_info(File)
   [Header, Ok] = fscanf(Fid, "P%1d %d %d %d ");
 
   if (Ok != 4)
-    error("Failed to read the header, probably it is not a PNM format");
+    error("Failed to read the header, probably it is not a PNM format\n");
   end
 
   switch (Header(1))
@@ -42,7 +42,7 @@ function [Format, Height, Width, Depth] = imolib_info(File)
     case 7
       Format = "PAM";
     otherwise
-      error("Not a PNM format");
+      error("Not a PNM format\n");
   end
 
   Width = Header(2);
