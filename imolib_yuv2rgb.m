@@ -19,12 +19,12 @@ function [R, G, B] = imolib_yuv2rgb(Y, U, V, Reverse)
     Reverse = false;
   end
 
-  if (!ismatrix(Y)) #|| !ismatrix(U) || !ismatrix(V) || !isbool(Reverse))
+  if (!ismatrix(Y)) || !ismatrix(U) || !ismatrix(V) || !isbool(Reverse))
     error("Input types are not correct\n");
   end
 
   if (any(size(Y) != size(U) | size(Y) != size(V)))
-    error("Matrix dimmensions must agree\n")
+    error("Matrix dimensions must agree\n")
   end
     
   R = G = B = zeros(size(Y));
