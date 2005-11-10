@@ -19,7 +19,7 @@ function [R, G, B] = imolib_yuv2rgb(Y, U, V, Reverse)
     Reverse = false;
   end
 
-  if (!ismatrix(Y)) || !ismatrix(U) || !ismatrix(V) || !isbool(Reverse))
+  if (!ismatrix(Y) || !ismatrix(U) || !ismatrix(V) || !isbool(Reverse))
     error("Input types are not correct\n");
   end
 
