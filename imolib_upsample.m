@@ -34,5 +34,7 @@ function M = imolib_upsample(DownMatrix, Factor)
     UpLeft(I:Factor:Rows*Factor, 1:Rows) = eye(Rows);
     UpRight(1:Cols, I:Factor:Cols*Factor) = eye(Cols);
   end
+  
+  ## Upsample the matrix
   M = UpLeft*DownMatrix*UpRight;
 end
