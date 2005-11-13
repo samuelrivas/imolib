@@ -32,7 +32,7 @@ function QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
   end
 
   if (Inverse)
-    QM = M .* QuantMatrix * Factor;
+    QM = round(M .* QuantMatrix * Factor);
   else 
     QM = round(M ./ (Factor * QuantMatrix));
   end
