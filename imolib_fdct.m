@@ -45,8 +45,8 @@ function Transform = imolib_fdct(M, Inverse)
   end
 
   if (!Inverse)
-    Transform = C*M*C';
+    Transform = round(C*M*C');
   else
-    Transform = C'*M*C;
+    Transform = round(C'*M*C);
   end
 endfunction;

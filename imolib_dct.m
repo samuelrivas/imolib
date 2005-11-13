@@ -47,5 +47,5 @@ function Coeff = coefficient(U, V, M)
     C = 1;
   end
 
-  Coeff = 2 * C * sum / N;
+  Coeff = round(2 * C * sum / N);
 endfunction
