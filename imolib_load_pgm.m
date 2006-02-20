@@ -36,8 +36,7 @@ function [Img, ColourMap] = imolib_load_pgm(File)
 
   ## TODO: Supports depths higher than 255
   if (Depth > 255) 
-    error("Two-byte sized pixels are not supported yet (depth must "
-	  + "be less than 256)\n")
+    error("Two-byte sized pixels are not supported yet (depth must be less than 256)\n")
   end
 
   Bytes = Height*Width;
