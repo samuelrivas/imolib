@@ -8,7 +8,7 @@
 ## Two possible improvements are:
 ##
 ## - Caching the C matrix to avoid recalculating it in each call
-## - Exploit the C matrix preiodicity to save some computations
+## - Exploit the C matrix periodicity to save some computations
 ##
 function Transform = imolib_fdct(M, Inverse)
 
