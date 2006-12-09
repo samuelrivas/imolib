@@ -1,6 +1,6 @@
 ## Usage imolib_load_pgm(File)
 ##
-## Can load pgm images
+## Loads pgm images
 ##
 ## Return [Img, ColourMap]
 
