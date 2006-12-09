@@ -1,7 +1,7 @@
-## usage: QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse,
+## usage: QM = imolib_block_quantise(M, BlockDims, QuantFactor, Inverse,
 ##				     QuantMatrix)
 ##
-## Quantize M blockwise. An individual quant factor can be specified for
+## Quantise M blockwise. An individual quant factor may be specified for
 ## each block.
 ##
 ## M must be a matrix.
@@ -13,14 +13,14 @@
 ## its dimensions must be coherent with M dimensions and BlockDims, so
 ## that each quant coefficient applies to a M block.
 ##
-## Inverse is an optional boolean to set inverse quantization. Default
+## Inverse is an optional boolean to set inverse quantisation. Default
 ## is false.
 ##
 ## QuantMatrix is also optional. If set, it must be a matrix with
 ## BlockDims dimensions. It is used to modify the quant factor for each
 ## block coefficient.
 
-function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
+function QM = imolib_block_quantise(M, BlockDims, QuantFactor, Inverse, \
 				    QuantMatrix)
 
 
@@ -82,7 +82,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
     Inverse = false;
   end
 
-  ## Quantize the matrix
+  ## Quantise the matrix
   
   QM = zeros(size(M));
 
@@ -94,7 +94,7 @@ function QM = imolib_block_quantize(M, BlockDims, QuantFactor, Inverse, \
 
       AuxBlock = M(Rows, Columns);
       
-      QM(Rows, Columns) = imolib_quantize(AuxBlock,  QuantFactor(Y, X), \
+      QM(Rows, Columns) = imolib_quantise(AuxBlock,  QuantFactor(Y, X), \
 					  Inverse, QuantMatrix);
     end
   end

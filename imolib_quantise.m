@@ -1,18 +1,18 @@
-## Usage QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
+## Usage QM = imolib_quantise(M, Factor, Inverse, QuantMatrix)
 ##
-## Quantizes the M matrix with Factor. If QuantMatrix is present, an
+## Quantises the M matrix with Factor. If QuantMatrix is present, an
 ## additional factor is used for each individual coefficient.
 ##
 ## The inverse parameter is an optional boolean. If it is true then
-## an inverse quantization is performed
+## an inverse quantisation is performed
 ##
 ## The operation is roughly the next:
 ## QM = round(M ./ (Factor * QuantMatrix))
 
-function QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)
+function QM = imolib_quantise(M, Factor, Inverse, QuantMatrix)
 
   if (nargout > 1 || nargin < 2 || nargin  > 4)
-    usage("QM = imolib_quantize(M, Factor, Inverse, QuantMatrix)\n");
+    usage("QM = imolib_quantise(M, Factor, Inverse, QuantMatrix)\n");
   end
 
   if (nargin >= 3)
